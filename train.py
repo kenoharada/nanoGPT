@@ -89,6 +89,8 @@ if ddp:
     torch.cuda.set_device(device)
     master_process = ddp_rank == 0 # this process will do logging, checkpointing etc.
     seed_offset = ddp_rank # each process gets a different seed
+    print('gradient_accumulation_steps', gradient_accumulation_steps)
+    print('torch.cuda.device_count()', torch.cuda.device_count())
     assert gradient_accumulation_steps % torch.cuda.device_count() == 0
     gradient_accumulation_steps //= torch.cuda.device_count()
 else:
